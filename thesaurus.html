@@ -1,0 +1,104 @@
+<head>
+  <title>Programmer's Thesaurus</title>
+</head>
+
+<body>
+  {{> navbar}}
+  {{> pageContent}}
+</body>
+
+<template name="navbar">
+  <table class="navbar js-navbar">
+    <tr>
+      <td class="navbar-title">
+        Programmer's Thesaurus
+      </td>
+      <td class="navbar-buttons" align="right">
+        <a class="nav-link" href="./import">Import</a>
+        <a class="nav-link" href="./alpha">Alphabetic</a>
+<!--        {if filterParam == 'top'}
+          <span class="nav-link-selected">Top level</span>
+        {else}
+          <a class="nav-link" href="./search?g=pos&f=top">Top level</a>
+        {/if} -->
+        <div class="nav-text-button" ui:name="more">More &#9662;</div>
+        <form class="nav-search-form" method="GET">
+          <input type="text"
+                 class="nav-search-box"
+                 placeholder="Enter a word to search for..."
+                 value="{{queryTerm}}"/>
+          <button type="submit" class="nav-button" ui:name="searchButton">Go</button>
+        </form>
+<!--        {if loginUri}
+          <a class="nav-link" href="{$loginUri}">Sign in</a>
+        {/if}
+        {if logoutUri}
+          <a class="nav-link" href="{$logoutUri}">Sign out</a>
+        {/if} -->
+      </td>
+    </tr>
+  </table>
+</template>
+
+<template name="pageContent">
+  <div id="content">
+    {{>Template.dynamic template=content data=params}}
+  </div>
+</template>
+
+<template name="search_results">
+  {{#if q}}
+    <div class="synset-search-header">Search results for &quot;{{q}}&quot;:</div>
+    {{#each group in (synsetQuery q)}}
+      {{> synset_group title=group.title group=group.content}}
+    {{/each}}
+  {{else}}
+    <div class="synset-search-header">No active query.</div>
+  {{/if}}
+</template>
+
+<template name="import">
+  <div class="import-panel">
+    <h2 class='content-heading'>Import Database</h2>
+    <form class="data-import" enctype="multipart/form-data">
+      <input type="file" id="importFile" name="import-data"/>
+      <button type="submit">Import</button>
+    </form>
+  </div>
+</template>
+
+<template name="synset_group">
+  <div class="synset-pos-group">
+    <div class="synset-pos-group-heading">{{title}}</div>
+    {{#each ss in group}}
+      {{> synset_expandable synset=ss}}
+    {{/each}}
+  </div>
+</template>
+
+<template name="synset_expandable">
+  <div class="synset collapsed">
+    <span class="synset-icon js-icon {{expandableClass synset}}" title="expand"></span>
+    <span class="synset-term primary js-primary">{{synset.term}}</span>{{#each term in synset.synonyms}}, <span class="synset-term">{{term}}</span>{{/each}}
+    {{#if synset.partOfSpeech}}
+      <span class="synset-pos">[{{pos synset}}]</span>
+    {{/if}}
+    {{#if synset.definition}}
+      - <span class="synset-definition">{{synset.definition}}</span>
+    {{else}}
+      - <span class="synset-definition-missing">Needs definition</span>
+    {{/if}}
+    <div class="synset-children">{{> synset_child_items (childArgs synset)}}</div>
+  </div>
+</template>
+
+<template name="synset_child_items">
+  {{#each group in groups}}
+    <div class="synset-rtype">
+      <div class="synset-rtype-heading">{{group.presentation.title}}</div>
+      {{#each ss in group.items}}
+        {{> synset_expandable synset=ss}}
+      {{/each}}
+    </div>
+  {{/each}}
+</template>

@@ -1,0 +1,261 @@
+/** Global styles. */
+
+body, table td, select {
+  font-family: Arial, sans-serif;
+  font-size: small;
+}
+
+body {
+  color: black;
+  margin: 0;
+  border: 0;
+  padding: 0;
+  background: #fff;
+  direction: ltr;
+  overflow: hidden;
+}
+
+a, a:visited, a:hover {
+  color: #0000AA;
+}
+
+/** Navigation bar. */
+
+.navbar {
+  font-weight: bold;
+  background-color: #ccccff;
+  margin-right: 0;
+  width: 100%;
+}
+
+.navbar-title {
+  padding: 2px 14px;
+  font-size: 150%;
+  font-weight: bold;
+}
+
+.navbar-buttons {
+  padding-right: 6px;
+}
+
+.nav-link, .nav-link-selected, .nav-text-button {
+  display: inline;
+  font-weight: bold;
+  margin-left: 10px;
+  margin-right: 10px;
+  text-decoration: none;
+  user-select: none;
+  -moz-user-select: none;
+}
+
+.nav-text-button {
+  color: #0000AA;
+  cursor: pointer;
+}
+
+.nav-search-form {
+  display: inline;
+}
+
+.nav-search-box {
+  height: 1.6em;
+  width: 200px;
+  margin-left: 8px;
+}
+
+/** Navigation button */
+
+.nav-button {
+  -moz-box-shadow: 1px 2px 3px 0 #b6cbe0;
+  -webkit-box-shadow: 1px 2px 3px 0 #b6cbe0;
+  margin: 0 4px 0 4px;
+  padding: 4px 5px;
+  text-decoration: none;
+  cursor: pointer;
+  cursor: hand;
+  box-shadow: 1px 2px 3px 0 #b6cbe0;
+  background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #f7f7fa), color-stop(1, #e3e1fa) );
+  background:-moz-linear-gradient( center top, #f7f7fa 5%, #e3e1fa 100% );
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7f7fa', endColorstr='#e3e1fa');
+  background-color:#f5f7fa;
+  -moz-border-radius:4px;
+  -webkit-border-radius:4px;
+  border-radius:4px;
+  border:1px solid #8396b3;
+  display:inline-block;
+  color:#000000;
+  font-family: Arial, sans-serif;
+  font-size:12px;
+  font-weight:normal;
+  text-decoration:none;
+}
+
+.nav-button:hover {
+  border-color:#637693;
+  background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #e1e9fa), color-stop(1, #f5f7fa) );
+  background:-moz-linear-gradient( center top, #e1e9fa 5%, #f5f7fa 100% );
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#e1e9fa', endColorstr='#f5f7fa');
+  background-color:#e1e9fa;
+}
+
+.nav-button:active {
+  position:relative;
+  top:1px;
+}
+
+/** Navigation menu */
+
+#glass {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.nav-popup {
+  position: absolute;
+  border: 1px solid  #88d;
+  z-index: 1;
+}
+
+a.nav-menu-item {
+  background-color: #ccccff;
+  display: block;
+  padding: 4px 12px;
+  font-weight: bold;
+  text-decoration: none;
+  user-select: none;
+  -moz-user-select: none;
+}
+
+a.nav-menu-item:hover {
+  background-color: #ddddff;
+}
+
+/** Content area. */
+
+#content {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 34px;
+  bottom: 0;
+  height: auto;
+  overflow-y:scroll;
+  padding: 0 12px 12px 12px;
+  transition: bottom .5s;
+  -webkit-overflow-scrolling: touch;
+}
+
+/** Synset search results page. */
+
+.synset-search-header {
+  margin: 12px 0;
+}
+
+/** Synsets */
+
+.synset {
+  margin-left: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.synset-icon, .synset-edit-icon {
+  margin: 4px 0;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  display: inline-block;
+  cursor: pointer;
+  user-select: none;
+  -moz-user-select: none;
+}
+
+.synset-icon {
+  color: #2c4;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  transition: transform .4s, text-shadow .4s;
+  transform-origin: 50% 40%;
+}
+
+.synset-icon.disabled {
+  color: #aec;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.synset.expand > .synset-icon {
+  transform: rotate(90deg);
+  text-shadow: 1px -1px 1px rgba(0, 0, 0, 0.5);
+}
+
+.synset-icon:after {
+  position: relative;
+  top: -2px;
+  content: "\0025BA";
+  font-size: 110%;
+}
+
+.synset-edit-icon {
+  width: 15px;
+  height: 15px;
+}
+
+.synset-edit-icon {
+  background-image: url(images/edit.gif);
+}
+
+.synset-term.primary {
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.synset-pos {
+  font-style: italic;
+}
+
+.synset-link.undefined {
+  color: #C66;
+}
+
+.synset-children {
+  display: none;
+}
+
+.synset.expand > .synset-children {
+  display: block;
+}
+
+.synset-definition-missing {
+  font-style: italic;
+  color: #ba0  
+}
+
+.synset-pos-group {
+}
+
+.synset-pos-group-heading {
+  font-size: 140%;  
+  font-weight: bold;
+  margin: 4px 0 2px 0;
+}
+
+.synset-rtype {
+  margin: 4px 0 4px 0;
+  margin-left: 16px;
+}
+
+.synset-rtype-heading {
+  font-size: 110%;
+  font-weight: bold;
+  text-decoration: underline;
+  margin: 4px 0 2px 0;
+}
+
+.synset-search-empty {
+  margin: 12px 4px;
+}
+
+.synset-search-header {
+  margin: 12px 0;
+}
