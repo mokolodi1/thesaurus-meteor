@@ -1,9 +1,18 @@
+// I see you're a single quote person. I think it'd be fine to have the social
+// network app be a single-quote app. Within an app the quote utilization
+// should be consistant. (You might have to police me if I make commits...)
+
 Meteor.methods({
   importDb: function(xmlData) {
+    // I actually didn't know about this.isSimulation...
+    // The better solution here would be to put this in the server folder,
+    // which is only loaded on the server.
     if (this.isSimulation) {
       // Can't run NPM packages on the client.
       return;
     }
+    // Interesting choice to load this every time. I think it makes sense in
+    // this case because you don't expect to be doing this very much.
     let xml2json = Meteor.npmRequire('xml2json');
     let data = xml2json.toJson(xmlData, { object: true, sanitize: false } );
     let synsetTable = undefined;
@@ -20,6 +29,7 @@ Meteor.methods({
     Synsets.remove({});
 
     // Transform repeated child nodes into arrays.
+    // Your comments are well chosen and helpful.
     function normalizeArray(json, field) {
       if (json[field] == undefined) {
         json[field] = [];
@@ -56,6 +66,7 @@ Meteor.methods({
       }
       recordsById[ss.id] = ssRecord;
       records.push(ssRecord);
+      // ES2016!! :)
       ssRecord._id = Synsets.insert(ssRecord, (err, newId) => {
         if (err) {
           console.log(err);
@@ -77,7 +88,7 @@ Meteor.methods({
       'aspectof' : 'hasaspect',
       'hasaspect' : 'aspectof',
     };
-    
+
     function addEdge(ss, targetId, relation) {
       for (var edge of ss.edges) {
         if (targetId == edge.target) {
@@ -87,7 +98,7 @@ Meteor.methods({
       }
       ss.edges = ss.edges.concat([{target: targetId, type:relation}]);
     }
-    
+
     for (var ss of synsetTable.synset) {
       if (ss.edge && ss.edge.length > 0) {
         for (var edge of ss.edge) {
@@ -108,26 +119,29 @@ Meteor.methods({
         }
       }
     }
-    
+
     for (var ssRecord of records) {
       if (ssRecord.edges) {
         Synsets.update(ssRecord._id, {$set: {edges: ssRecord.edges}});
       }
     }
-    
+
     console.log("Synset count:", Synsets.find().count());
   }
 });
 
+// Would be better in the client directory, but I think you're just using
+// what you got in the examples.
 if (Meteor.isClient) {
   Template.import.events({
     "submit .data-import": function(event) {
       // Prevent default browser form submit.
       event.preventDefault();
-      
+
       // Get value from form element.
       var files = event.target.importFile.files;
       if (files.length) {
+        // TIL FileReader
         var reader = new FileReader();
         reader.onload = function(e) {
           Meteor.call("importDb", e.target.result);

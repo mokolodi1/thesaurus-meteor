@@ -2,6 +2,10 @@
   <title>Programmer's Thesaurus</title>
 </head>
 
+<!--
+I'm staring to use FlowRouter, but IronRouter is what all the other
+apps use. Either is fine but I think FlowRouter is cooler.
+-->
 <body>
   {{> navbar}}
   {{> pageContent}}
@@ -22,6 +26,7 @@
           <a class="nav-link" href="./search?g=pos&f=top">Top level</a>
         {/if} -->
         <div class="nav-text-button" ui:name="more">More &#9662;</div>
+        <!-- Does the GET hook up to anything or is this an import artifact? -->
         <form class="nav-search-form" method="GET">
           <input type="text"
                  class="nav-search-box"
@@ -46,6 +51,7 @@
   </div>
 </template>
 
+<!-- I'm a camel-case guy for templates, but you do you. -->
 <template name="search_results">
   {{#if q}}
     <div class="synset-search-header">Search results for &quot;{{q}}&quot;:</div>
@@ -60,6 +66,7 @@
 <template name="import">
   <div class="import-panel">
     <h2 class='content-heading'>Import Database</h2>
+    <!-- TIL enctype -->
     <form class="data-import" enctype="multipart/form-data">
       <input type="file" id="importFile" name="import-data"/>
       <button type="submit">Import</button>
@@ -70,6 +77,11 @@
 <template name="synset_group">
   <div class="synset-pos-group">
     <div class="synset-pos-group-heading">{{title}}</div>
+    <!-- I didn't know you could name the thing you're iterating through! -->
+    <!-- Maybe it's a 1.2 thing -->
+    <!-- Speaking of which, this is how you create a meteor app with the old release: -->
+    <!-- meteor create [dash][dash]release 1.1.0.3 -->
+    <!-- If we're starting fresh I think 1.2 would be okay. -->
     {{#each ss in group}}
       {{> synset_expandable synset=ss}}
     {{/each}}
@@ -88,6 +100,7 @@
     {{else}}
       - <span class="synset-definition-missing">Needs definition</span>
     {{/if}}
+    <!-- nested template helpers!! didn't know that was new in 1.2 -->
     <div class="synset-children">{{> synset_child_items (childArgs synset)}}</div>
   </div>
 </template>

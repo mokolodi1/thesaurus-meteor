@@ -1,3 +1,5 @@
+// I try to declare the collection and the schema together
+
 // Collections
 SynsetChanges = new Mongo.Collection("synset-changes");
 SynsetChanges.attachSchema(Schema.SynsetChange);
@@ -17,6 +19,7 @@ FlowRouter.route('/', {
 });
 
 // Presentation attributes for parts of speech.
+// let :)
 let POSPresentation = {
   noun: { title: "Noun", order: 1, abbrev: "n" },
   verb: { title: "Verb", order: 2, abbrev: "v" },
@@ -81,14 +84,16 @@ if (Meteor.isClient) {
           }
           group.content.push(ss);
         }
+        // cool underscore function
         return _.sortBy(groupArray, 'order');
       }
     },
   });
 
   Template.synset_expandable.onCreated(function() {
+    // I normally have `var instance = this;` to be super explicit
     this.expandedOnce = false;
-    this.expansionDep = new Tracker.Dependency;
+    this.expansionDep = new Tracker.Dependency; // the Meteor way!
     this.toggleExpansion = () => {
       let el = this.$('.synset');
       let icon = this.$('.js-icon');
@@ -170,7 +175,7 @@ if (Meteor.isServer) {
   // Meteor.publish("Synset.search_pos", function(pos) {
   //   return Synsets.find({partOfSpeech: pos}, {sort: {'termLower': 1}});
   // });
-  
+
   Meteor.startup(function () {
     // code to run on server at startup
   });
